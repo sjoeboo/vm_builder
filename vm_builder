@@ -1,0 +1,57 @@
+#!/usr/bin/evn ruby
+#
+#Matthew Nicholson
+#https://github.com/sjoeboo/vm_builder
+#
+#Script wrapping virt-install for building vms defined in Cobbler
+#a Koan replacment/addition
+
+require 'optparse'
+require 'pp'
+require 'yaml'
+require 'xmlrpc/client'
+require 'net/http'
+require 'timeout'
+
+#Get cmd line options/config file options
+options={}
+OptionParser.new do |opts|
+        opts.banner = "Usage: vm_builder [options] <system_name>"
+        
+        opts.on("-f", "--configfile PATH", String, "Set config file") do |path|
+                  options[:config] = path
+                  opts_from_cfg=Hash[YAML::load(open(path)).map { |k, v| [k.to_sym, v] }]
+                  options=opts_from_cfg.merge(options)
+          end
+end.parse!
+
+#Find and load default config
+if options[:config] == nil
+  config_opts=Hash.new
+  home=File.expand_path('~')
+  if File.exists?(home+"/.vm_builderrc")
+    config_opts=Hash[YAML::load(open(home+"/.vm_builderrc")).map { |k, v| [k.to_sym, v] }]
+  end
+  options=config_opts.merge(options)
+end
+
+if ARGV.length != 1
+        puts "Please pass a system name, see --help"
+        exit
+else
+        system_name = ARGV[0]
+end
+
+puts system_name
+
+#Function to get info from cobbler
+def cobbler_info(system_name,options)
+  connection = XMLRPC::Client.new2("#{options[:cobbler_api]}")
+  system_data = connection.call("get_system_as_rendered","#{system_name}")
+  return(system_data)
+end
+
+info=cobbler_info(system_name,options)
+pp info
+
+
