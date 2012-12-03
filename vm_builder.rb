@@ -1,4 +1,4 @@
-#!/usr/bin/evn ruby
+#!/usr/bin/env ruby
 #
 #Matthew Nicholson
 #https://github.com/sjoeboo/vm_builder
