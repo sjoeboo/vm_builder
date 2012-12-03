@@ -15,6 +15,8 @@ Usage
 	-r, --ram RAM                    RAM in GB
 	-d, --disk-size DISK_SIZE_GB     Disk Size in GB
 	-p, --pool storage_pool          Storage pool to use
+	-b, --disk-bus disk_bus          Disk Bus to use virtio, etc
+	-t, --disk-type disk_type        Disk type to use raw, qcow2, etc
 
 
 Config File

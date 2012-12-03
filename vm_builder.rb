@@ -34,16 +34,16 @@ OptionParser.new do |opts|
         opts.on("-r", "--ram RAM", "RAM in GB") do |r|
           optoons[:ram] = r
         end
-        opts.on("-ds","--disk-size DISK_SIZE_GB","Disk Size in GB") do |ds|
+        opts.on("-d","--disk-size DISK_SIZE_GB","Disk Size in GB") do |ds|
           options[:disk_size] = ds
         end
         opts.on("-p","--pool storage_pool","Storage pool to use") do |pool|
           options[:pool] = pool
         end
-        opts.on("-db","--disk-bus disk_bus","Disk Bus to use <virtio, etc> " do |disk_bus|
+        opts.on("-b","--disk-bus disk_bus","Disk Bus to use virtio, etc") do |disk_bus|
           options[:disk_bus] = disk_bus
         end
-         opts.on("-db","--disk-type disk_type","Disk type to use <raw, qcow2, etc>" do |disk_type|
+         opts.on("-t","--disk-type disk_type","Disk type to use raw, qcow2, etc") do |disk_type|
            options[:disk_type] = disk_type
          end
 end.parse!
