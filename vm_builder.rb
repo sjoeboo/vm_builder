@@ -40,9 +40,12 @@ OptionParser.new do |opts|
         opts.on("-p","--pool storage_pool","Storage pool to use") do |pool|
           options[:pool] = pool
         end
-
-
-
+        opts.on("-db","--disk-bus disk_bus","Disk Bus to use <virtio, etc> " do |disk_bus|
+          options[:disk_bus] = disk_bus
+        end
+         opts.on("-db","--disk-type disk_type","Disk type to use <raw, qcow2, etc>" do |disk_type|
+           options[:disk_type] = disk_type
+         end
 end.parse!
 
 #Find and load default config
