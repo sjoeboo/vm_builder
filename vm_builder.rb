@@ -120,53 +120,53 @@ def merge_ops(cobbler_info,options)
         vm_ops[:name] = cobbler_info["system_name"]
         #RAM
         case options[:ram]
-        when !nil
-                vm_ops[:ram] = options[:ram]
-        else
+        when nil
                 vm_ops[:ram] = cobbler_info["virt_ram"]
+        else
+                vm_ops[:ram] = options[:ram]
         end
         #CPUS
         case options[:cpus]
-        when !nil
-                vm_ops[:cpus] = options[:cpus]
-        else
+        when nil
                 vm_ops[:cpus] = cobbler_info["virt_cpus"]
+        else
+                vm_ops[:cpus] = options[:cpus]
         end
         #ARCH
         case options[:arch]
-        when !nil
-                vm_ops[:arch] = options[:arch]
-        else
+        when nil
                 vm_ops[:arch] = cobbler_info["arch"]
+        else
+                vm_ops[:arch] = options[:arch]
         end
         #OS
         case options[:os_variant]
-        when !nil
-                vm_ops[:os_variant] = options[:os_variant]
-        else
+        when nil
                 vm_ops[:os_variant] = cobbler_info["os_version"]
+        else
+                vm_ops[:os_variant] = options[:os_variant]
         end
         #DISK_SIZE
         case options[:disk_size]
-        when !nil
-                vm_ops[:disk_size] = options[:disk_size]
-        else
+        when nil
                 vm_ops[:disk_size] = cobbler_info["virt_file_size"]
+        else
+                vm_ops[:disk_size] = options[:disk_size]
         end
         #DISK_BUS
         #No else, not in cobbler
         case options[:disk_bus]
-        when !nil
-                vm_ops[:disk_bus] = options[:disk_bus]
-        else
+        when nil
                 vm_ops[:disk_bus] = "virtio"
+        else
+                vm_ops[:disk_bus] = options[:disk_bus]
         end
         #DISK_TYPE
         case options[:disk_type]
-        when !nil
-                vm_ops[:disk_type] = options[:disk_type]
-        else
+        when nil
                 vm_ops[:disk_type] = cobbler_info["virt_disk_driver"]
+        else
+                vm_ops[:disk_type] = options[:disk_type]
         end
         #DISK_CACHE
         #no else, not in cobbler as an option
@@ -174,32 +174,32 @@ def merge_ops(cobbler_info,options)
 
         #NET_BRIDGE
         case options[:net_bridge]
-        when !nil
-                vm_ops[:net_bridge] = options[:net_bridge]
-        else
+        when nil
                 vm_ops[:net_bridge] = cobbler_info["virt_bridge_eth0"]
+        else
+                vm_ops[:net_bridge] = options[:net_bridge]
         end
         #NET_MAC
         case options[:net_mac]
-        when !nil
-                vm_ops[:net_mac] = options[:net_mac]
-        else
+        when nil
                 vm_ops[:net_mac] = cobbler_info["mac_address_eth0"]
+        else
+                vm_ops[:net_mac] = options[:net_mac]
         end
         #install tree
         case options["location"]
-        when !nil
-                vm_ops[:location] = options[:location]
-        else
+        when nil
                 ks_meta = cobbler_info["ks_meta"].sub("tree=","").strip
                 vm_ops[:location] = ks_meta
+        else
+                vm_ops[:location] = options[:location]
         end
         #extra
         case options["extra"]
-        when !nil
-                vm_ops[:extra] = options[:extra]
-        else
+        when nil
                 vm_ops[:extra] = "ks=http://#{cobbler_info['server']}/cblr/svc/op/ks/system/#{cobbler_info['system_name']} ksdevice=link kssendmac lang= text"
+        else
+                vm_ops[:extra] = options[:extra]
         end
         return(vm_ops)
 end
