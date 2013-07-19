@@ -32,7 +32,7 @@ OptionParser.new do |opts|
           options[:cpus] = c
         end
         opts.on("-r", "--ram RAM", "RAM in GB") do |r|
-          options[:ram] = r
+          options[:ram] = r.to_i * 1024
         end
         opts.on("-d","--disk-size DISK_SIZE_GB","Disk Size in GB") do |ds|
           options[:disk_size] = ds
